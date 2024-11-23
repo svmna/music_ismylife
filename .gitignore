@@ -1,4 +1,11 @@
+# mac os
 .DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+
+# 민감한 정보 제외
+secrets.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

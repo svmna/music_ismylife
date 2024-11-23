@@ -11,16 +11,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+SECRETS_PATH = BASE_DIR / "secrets.json"
 
+# secrets.json 파일 로드
+with open(SECRETS_PATH, 'r') as secrets_file:
+    SECRETS = json.load(secrets_file)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-505k#8q8g#i_#oy4dp^lh3%d)&)l7lzuqn^o4wlxf*ha9&o1n+'
+SECRET_KEY = SECRETS["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'search', # app 추가
 ]
 
 MIDDLEWARE = [
@@ -73,11 +75,9 @@ WSGI_APPLICATION = 'music_ismylife.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# secrets 처리
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': SECRETS["DATABASE"]
 }
 
 
@@ -114,8 +114,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
+# 기본 STATIC_URL 설정
 STATIC_URL = 'static/'
+# search 앱의 static 파일 경로 추가
+STATICFILES_DIRS = [
+    BASE_DIR / 'search' / 'static', 
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
