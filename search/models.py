@@ -23,6 +23,17 @@ class YouTubePlaylist(models.Model):
         verbose_name = "유튜브 플레이리스트"
         verbose_name_plural = "유튜브 플레이리스트 목록"
 
+class SpotifyRecommend(models.Model):
+    no = models.AutoField(primary_key=True) 
+    title = models.CharField(max_length=256, verbose_name="노래 제목")
+    link = models.URLField(max_length=256, verbose_name="노래 주소")
+    cover_image = models.URLField(max_length=256, verbose_name="커버 이미지 링크")
+
+    class Meta:
+        db_table = 'spotify_recommend'  # 테이블 이름 설정
+        verbose_name = "스포티파이 추천 노래"
+        verbose_name_plural = "스포티파이 추천 노래 목록"
+
 class SpotifyPlaylist(models.Model):
     no = models.AutoField(primary_key=True)
     title = models.CharField(max_length=256, verbose_name="플레이리스트 제목")
@@ -33,4 +44,3 @@ class SpotifyPlaylist(models.Model):
         db_table = 'spotify_playlist'
         verbose_name = "스포티파이 플레이리스트"
         verbose_name_plural = "스포티파이 플레이리스트 목록"
-

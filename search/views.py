@@ -47,12 +47,14 @@ def result(request):
     # 모든 데이터 가져오기
     youtube_videos = YouTubeVideo.objects.all()
     youtube_playlists = YouTubePlaylist.objects.all()
+    spotify_recommend = SpotifyRecommend.objects.all()
     spotify_playlists = SpotifyPlaylist.objects.all()
 
     # 템플릿으로 데이터 전달
     context = {
         'youtube_videos': youtube_videos,
         'youtube_playlists': youtube_playlists,
+        'spotify_recommend': spotify_recommend,
         'spotify_playlists': spotify_playlists,
     }
     return render(request, 'search/result.html', context)
